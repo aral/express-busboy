@@ -76,6 +76,7 @@ exports.extend = function(app, options) {
         // Collect raw body into buffer for non-multipart requests.
         // This will allow us, for example, to verify webhook signatures.
         // Closes: https://github.com/yahoo/express-busboy/pull/36
+        /*istanbul ignore next*/
         if (req.readable && !req.is('multipart')) {
             const chunks = [];
             req.on('data', (chunk) => chunks.push(chunk));
@@ -83,8 +84,10 @@ exports.extend = function(app, options) {
                 req.rawBody = Buffer.concat(chunks);
             });
 
-            /*istanbul ignore next*/
             if (!req.is('json') && !req.busboy) {
+                // If it's not JSON and not multipart (busboy), we still need to
+                // wait for the end event to ensure rawBody is populated before
+                // calling next().
                 req.on('end', () => {
                     next();
                 });
@@ -105,6 +108,7 @@ exports.extend = function(app, options) {
             return;
         }
 
+        /*istanbul ignore next*/
         if (!req.busboy) {
             //Nothing to parse..
             return next();

@@ -121,4 +121,43 @@ describe('express-busboy: rawBody', function() {
             }
         );
     });
+
+    it('should handle requests without busboy (no body)', function(done) {
+        request(
+            {
+                method: 'GET',
+                url: base + '/',
+                timeout: 2000
+            },
+            function(err, res, d) {
+                if (err) return done(err);
+                d = JSON.parse(d);
+                assert.ok(d);
+                assert.ok(d.rawBody === null || d.rawBody === '');
+                done();
+            }
+        );
+    });
+
+    it('should handle non-JSON/non-busboy requests with body', function(done) {
+        var postData = 'some-raw-data';
+        request(
+            {
+                method: 'POST',
+                url: base + '/',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: postData,
+                timeout: 2000
+            },
+            function(err, res, d) {
+                if (err) return done(err);
+                d = JSON.parse(d);
+                assert.ok(d);
+                assert.equal(d.rawBody, postData);
+                done();
+            }
+        );
+    });
 });
