@@ -1,14 +1,18 @@
 'use strict';
 /*
- * Copyright (c) 2014, Yahoo Inc. All rights reserved.
- * Copyrights licensed under the New BSD License.
- * See the accompanying LICENSE file for terms.
- *
- * Changes by Aral Balkan licensed under AGPL v3.0. 
- */
+ @small-web/kitten-busboy
+
+ Fork of express-busboy.
+
+ Copyright (c) 2014, Yahoo Inc. All rights reserved.
+ Copyrights licensed under the New BSD License.
+ See the accompanying LICENSE file for terms.
+
+ Changes by Aral Balkan licensed under AGPL v3.0. 
+*/
 
 const busboy = require('connect-busboy');
-const key = '@express-busboy';
+const key = '@small-web/kitten-busboy';
 const path = require('path');
 const uuid = require('uuid');
 const fs = require('fs');
@@ -54,7 +58,7 @@ exports.extend = function(app, options) {
     options = options || {};
     options.immediate = false; //Remove if the user sets it
     options.parseBody = typeof options.parseBody === 'boolean' ? options.parseBody : true;
-    options.path = options.path || path.join(os.tmpdir(), 'express-busboy');
+    options.path = options.path || path.join(os.tmpdir(), 'kitten-busboy');
     options.strip = options.strip && options.strip instanceof Function ? options.strip : strip;
     const restrictMultiple = options.restrictMultiple;
     const mimeTypeLimit = options.mimeTypeLimit
@@ -75,7 +79,7 @@ exports.extend = function(app, options) {
 
         // Collect raw body into buffer for non-multipart requests.
         // This will allow us, for example, to verify webhook signatures.
-        // Closes: https://github.com/yahoo/express-busboy/pull/36
+        // Also see: https://github.com/yahoo/express-busboy/pull/36
         /*istanbul ignore next*/
         if (req.readable && !req.is('multipart')) {
             const chunks = [];

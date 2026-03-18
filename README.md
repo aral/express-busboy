@@ -1,4 +1,27 @@
-# express-busboy [![npm version](https://badge.fury.io/js/express-busboy.svg)](http://badge.fury.io/js/express-busboy) ![Build Status](https://github.com/yahoo/express-busboy/actions/workflows/test.yml/badge.svg)
+# @small-web/kitten-busboy
+
+Fork of express-boy.
+
+As used in [Kitten](https://kitten.small-web.org)
+
+## Breaking changes
+
+  - New module
+  - Changed type information: expects [Polka](https://github.com/lukeed/polka) application instead of Express (Kitten uses Polka).
+
+## Added
+
+  - `rawBody` property to requests.
+
+For full details, please see the [change log](/CHANGELOG.md).
+
+Originally licensed under BSD-3-Clause. Any changes by Aral Balkan licensed under AGPL version 3.0.
+
+***
+
+Original express-busboy readme follows:
+
+## express-busboy [![npm version](https://badge.fury.io/js/express-busboy.svg)](http://badge.fury.io/js/express-busboy) ![Build Status](https://github.com/yahoo/express-busboy/actions/workflows/test.yml/badge.svg)
 
 A simple `body-parser` like module for express that
 uses [`connect-busboy`](https://github.com/mscdex/connect-busboy) under the hood.

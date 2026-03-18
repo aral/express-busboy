@@ -1,8 +1,18 @@
 {
-  "name": "express-busboy",
-  "description": "Busboy for express, mimics the old bodyParser",
-  "version": "10.1.0",
-  "author": "Dav Glass <davglass@gmail.com>",
+  "name": "@small-web/kitten-busboy",
+  "description": "Busboy for Kitten, mimics the old bodyParser (fork of express-busboy)",
+  "version": "1.0.0",
+  "contributors": [
+    {
+      "name": "Dav Glass",
+      "email": "davglass@gmail.com"
+    },
+    {
+      "name": "Aral Balkan",
+      "email": "mail@ar.al",
+      "url": "https://ar.al"
+    }
+  ],
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix .",
@@ -34,6 +44,7 @@
     "express": "^4.16.4",
     "jenkins-mocha": "^9.0.0",
     "nyc": "^15.1.0",
+    "polka": "^1.0.0-next.25",
     "portfinder": "~0.2.1",
     "request": "^2.88.0"
   },
