@@ -3,6 +3,8 @@
  * Copyright (c) 2014, Yahoo Inc. All rights reserved.
  * Copyrights licensed under the New BSD License.
  * See the accompanying LICENSE file for terms.
+ *
+ * Changes by Aral Balkan licensed under AGPL v3.0. 
  */
 
 const busboy = require('connect-busboy');
@@ -70,6 +72,25 @@ exports.extend = function(app, options) {
 
         req.body = req.body || {};
         req.files = req.files || {};
+
+        // Collect raw body into buffer for non-multipart requests.
+        // This will allow us, for example, to verify webhook signatures.
+        // Closes: https://github.com/yahoo/express-busboy/pull/36
+        if (req.readable && !req.is('multipart')) {
+            const chunks = [];
+            req.on('data', (chunk) => chunks.push(chunk));
+            req.on('end', () => {
+                req.rawBody = Buffer.concat(chunks);
+            });
+
+            /*istanbul ignore next*/
+            if (!req.is('json') && !req.busboy) {
+                req.on('end', () => {
+                    next();
+                });
+                return;
+            }
+        }
 
         if (req.is('json') && req.readable) {
             if (!options.parseBody) {
